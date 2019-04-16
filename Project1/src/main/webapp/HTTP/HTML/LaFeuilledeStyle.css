@@ -27,7 +27,7 @@ h2
 
 body 
 {
-    background: #1b327ee0;
+    background: #1b6a7ee0;
     color: rgb(0, 0, 0);
     max-width: 500px;
     margin: auto;
@@ -39,30 +39,27 @@ body
 
 fieldset 
 {
-    -webkit-box-shadow: 0px -14px 93px 13px rgba(0,0,0,1);
-    -moz-box-shadow: 0px -14px 93px 13px rgba(0,0,0,1);
-    box-shadow: 0px -14px 93px 13px rgba(0,0,0,1);
+    -webkit-box-shadow: inset 2px -1px 77px 0px rgba(20, 186, 122, 0.836);
+    -moz-box-shadow: inset 2px -1px 77px 0px rgba(20, 186, 122, 0.692);
+    box-shadow: inset 2px -1px 77px 0px rgba(20, 186, 122, 0.603);
     border-radius: 8px;
-    border-color:  rgba(101, 253, 0, 0.144);
+    border-color:  rgba(101, 253, 0, 0.226);
     width: 50%;
     margin: 0 auto;
-    background: #8cb8d6a4;
+    background: #00d9ffab;
 }
 
 
 legend 
 { 
-    color:rgb(0, 0, 0);
-    background-color:rgba(50, 104, 14, 0.938);
+    color:rgb(255, 255, 255);
+    background-color:rgba(0, 255, 213, 0.911);
     border-radius: 4px;
 }
 
 
 main.login div input[type=text] 
 {   
-    -webkit-box-shadow: inset 2px -1px 77px 0px rgba(20,186,123,1);
-    -moz-box-shadow: inset 2px -1px 77px 0px rgba(20,186,123,1);
-    box-shadow: inset 2px -1px 77px 0px rgba(20,186,123,1);
     vertical-align: middle;
     border-radius: 5px;
     border-width: 1.5px;
@@ -86,7 +83,7 @@ main.login div input[type=text]
     font-family: Roboto, sans-serif;
     border-radius: 5px;
     border-width: 1.5px;
-    background-color: rgba(0, 255, 221, 0.747); 
+    background-color: rgba(0, 255, 213, 0.466); 
     border-color:  rgba(101, 253, 0, 0.144);
     /* -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s; */
@@ -100,7 +97,7 @@ main.login div input[type=text]
 
 #submit-btn:hover
 {
-    background-color: rgba(0, 255, 213, 0.466);
+    background-color: rgb(0, 199, 206);
 }
 
 
@@ -129,7 +126,7 @@ footer
     -moz-box-shadow: 4px 16px 93px 13px rgba(0,0,0,1);
     box-shadow: 4px 16px 93px 13px rgba(0,0,0,1); */
     border-radius: 15px;
-    background: rgba(101, 253, 0, 0.075);
+    background: rgba(0, 255, 213, 0.178);
     /* height: 100px; */
     margin: auto;
     width: 50%;
