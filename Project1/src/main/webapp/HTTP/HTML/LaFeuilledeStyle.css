@@ -88,10 +88,10 @@ main.login div input[type=text]
     border-width: 1.5px;
     background-color: rgba(0, 255, 221, 0.747); 
     border-color:  rgba(101, 253, 0, 0.144);
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
+    /* -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s; */
     color: rgb(0, 0, 0);
-    padding: 3px 10px;
+    padding: 2px 7px;
     text-align: center;
     display: inline-block;
     font-size: 16px;
