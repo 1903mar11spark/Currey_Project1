@@ -36,5 +36,27 @@
   		<artifactId>jackson-databind</artifactId>
   		<version>2.9.8</version>
   	</dependency>
-  </dependencies>
+  	
+  	<dependency>
+  		<groupId>com.fasterxml.jackson.datatype</groupId>
+  		<artifactId>jackson-datatype-jsr310</artifactId>
+  		<version>2.9.8</version>
+  	</dependency>
+  
+  
+  <!-- include JDBC driver -->
+		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc7 -->
+	<dependency>
+		<groupId>com.oracle</groupId>
+		<artifactId>ojdbc7</artifactId>
+		<version>12.1.0.2</version>
+	</dependency>
+	
+	<dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
 </project>
