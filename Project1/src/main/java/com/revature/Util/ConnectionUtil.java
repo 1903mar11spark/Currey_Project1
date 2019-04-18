@@ -20,6 +20,8 @@ public class ConnectionUtil
 	
 	public static ConnectionUtil getInstance() 
 	{
+		if(cu==null)
+			cu=new ConnectionUtil();
 		return cu;
 	}
 	
