@@ -15,17 +15,24 @@ public class DAO
 		{
 			if (stmt != null)
 				stmt.close();
-		} catch (SQLException e)
+		} 
+		
+		catch (SQLException e)
 		{
 			System.out.println("Could not close statement!");
 			e.printStackTrace();
 		}
 
+		
+		
+		
 		try
 		{
 			if (connection != null)
 				connection.close();
-		} catch (SQLException e)
+		} 
+		
+		catch (SQLException e)
 		{
 			System.out.println("Could not close connection!");
 			e.printStackTrace();

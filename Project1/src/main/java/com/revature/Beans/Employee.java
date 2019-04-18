@@ -2,27 +2,32 @@ package com.revature.Beans;
 
 public class Employee
 {
+	
     
     int id;
-    String jobTitle;
+    String jobId;
+    String userName;
+    String passWord;
     String firstName, lastName;
     int reportsTo;
     boolean isManager;
+	
 
     static int count = 0;
 
     public Employee()
     {
         this.id = -1;
-        this.jobTitle = null;
+        this.jobId = null;
         this.firstName = null;
         this.lastName = null;
         this.reportsTo = -1;
+        
     }
-    public Employee(int id, String job, String fName, String lName, int manId, boolean isBoss)
+    public Employee(int id, String job,  String fName, String lName, int manId, boolean isBoss, String Email)
     {
         this.id = id;
-        this.jobTitle = job;
+        this.jobId = job;
         this.firstName = fName;
         this.lastName = lName;
         this.reportsTo = manId;
@@ -45,9 +50,9 @@ public class Employee
         return this.reportsTo;
     }
 
-    public String getTitle()
+    public String getjob()
     {
-        return this.jobTitle;
+        return this.jobId;
     }
     public String getFirstName()
     {

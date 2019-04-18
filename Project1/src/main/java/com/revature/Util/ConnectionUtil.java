@@ -38,7 +38,7 @@ public class ConnectionUtil
 		Properties prop = new Properties();
 			try 
 			{		
-				prop.load(new FileInputStream("src/main/resources/Connection.prop"));
+				prop.load(new FileInputStream("/Project1/src/main/java/Connection.prop"));
 				Class.forName(prop.getProperty(DB_DRIVER_CLASS));
 				conn = DriverManager.getConnection(prop.getProperty(DB_URL),prop.getProperty(DB_USERNAME) , prop.getProperty(DB_PASSWORD) );
 			} 
