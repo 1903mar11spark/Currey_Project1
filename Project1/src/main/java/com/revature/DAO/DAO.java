@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DAO 
+
+public class DAO
 {
+	
 	protected Connection connection = null;
 	protected PreparedStatement stmt = null;
 	
