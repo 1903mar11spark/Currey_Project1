@@ -15,25 +15,15 @@ public class Employee
 
     static int count = 0;
 
-    public Employee()
+    public Employee(int i, String job, String fName, String lName)
     {
         this.id = -1;
         this.jobId = null;
         this.firstName = null;
         this.lastName = null;
-        this.reportsTo = -1;
-        
-    }
-    public Employee(int id, String job,  String fName, String lName, int manId, boolean isBoss, String Email)
-    {
-        this.id = id;
-        this.jobId = job;
-        this.firstName = fName;
-        this.lastName = lName;
-        this.reportsTo = manId;
-        this.isManager = isBoss;
         System.out.println(this.toString());
     }
+  
    
     
     public void setId(int num)
@@ -66,4 +56,12 @@ public class Employee
     {
         return this.isManager;
     }
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", jobId=" + jobId + ", userName=" + userName + ", passWord=" + passWord
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", reportsTo=" + reportsTo + ", isManager="
+				+ isManager + "]";
+	}
+
+    
 }

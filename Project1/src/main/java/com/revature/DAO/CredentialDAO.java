@@ -35,7 +35,7 @@ public class CredentialDAO extends DAO
 			return cred;
 		}
 		
-		public int tryLogin(String user, String password)
+		public static int tryLogin(String user, String password)
 		{
 			int id = -1;
 			try

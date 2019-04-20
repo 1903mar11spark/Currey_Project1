@@ -1,6 +1,5 @@
 package com.revature.Util;
 
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,44 +7,52 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionUtil 
-{
-	private static ConnectionUtil cu = new ConnectionUtil();
+import com.revature.DAO.EmployeeDAO;
+import com.revature.DAO.EmployeeDAOImpl;
+
+public class ConnectionUtil {
+	private static final String DB_DRIVER_CLASS="driver.class.name";
+	private static final String DB_USERNAME="db.username";
+	private static final String DB_PASSWORD="db.password";
+	private static final String DB_URL ="db.url";
 	
-	private ConnectionUtil() 
+	private static Connection connection = null;
+	private static Properties properties = null;
+	//this should not be static, if static will only create connection when class first loads
 	{
-		super();
+		try {
+			properties = new Properties();
+			properties.load(new FileInputStream("src/main/resources/connection.prop"));
+			Class.forName(properties.getProperty(DB_DRIVER_CLASS));
+			connection = DriverManager.getConnection(properties.getProperty(DB_URL),properties.getProperty(DB_USERNAME) , properties.getProperty(DB_PASSWORD) );
+		} catch (ClassNotFoundException | SQLException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static ConnectionUtil getInstance() 
-	{
-		if(cu==null)
-			cu=new ConnectionUtil();
-		return cu;
-	}
-	
-	public static Connection getConnection() 
-	{
+	public static Connection getConnection(){
 		
-		final String DB_DRIVER_CLASS = "driver.class.name";
-		final String DB_USERNAME = "db.username";
-		final String DB_PASSWORD = "db.password";
-		final String DB_URL = "db.url";
-		
-		Connection conn = null;
-		
-		Properties prop = new Properties();
-			try 
-			{		
-				prop.load(new FileInputStream("/Project1/src/main/java/Connection.prop"));
-				Class.forName(prop.getProperty(DB_DRIVER_CLASS));
-				conn = DriverManager.getConnection(prop.getProperty(DB_URL),prop.getProperty(DB_USERNAME) , prop.getProperty(DB_PASSWORD) );
-			} 
-			
-			catch (ClassNotFoundException | SQLException | IOException e) 
-			{
+			try {
+				properties = new Properties();
+				properties.load(new FileInputStream("src/main/Java/Connection.prop"));
+				Class.forName(properties.getProperty(DB_DRIVER_CLASS));
+				connection = DriverManager.getConnection(properties.getProperty(DB_URL),properties.getProperty(DB_USERNAME) , properties.getProperty(DB_PASSWORD) );
+			} catch (ClassNotFoundException | SQLException | IOException e) {
 				e.printStackTrace();
-			}		
-		return conn;	
+			}
+		
+		
+		return connection;
+	}
+	
+	
+//	public static RequestsDAO getReimburseDAO()
+//	{
+//		return new ReimbursementDAOImpl();
+//	}
+
+	public static EmployeeDAO getEmployeeDAO()
+	{
+		return new EmployeeDAOImpl();
 	}
 }
