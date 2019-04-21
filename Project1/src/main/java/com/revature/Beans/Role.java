@@ -95,7 +95,6 @@ public class Role
 	
 	
 	
-	
 	@Override
 	public boolean equals(Object obj) 
 	{

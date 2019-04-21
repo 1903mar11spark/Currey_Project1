@@ -38,7 +38,7 @@ public class ConnectionUtil {
 		}
 	}
 	
-	public static Connection getConnection(){
+	public Connection getConnection(){
 		
 			try {
 				properties = new Properties();

@@ -11,45 +11,40 @@ import com.revature.Beans.Role;
 import com.revature.Beans.Employee;
 import com.revature.Util.ConnectionUtil;
 
-public class EmployeeDAO implements DAO<Employee> {
+public class EmployeeDAO implements DAO<Employee> 
+{	
 	
-	
-	public Employee getByUsername(String username) {
-		
+	public Employee getByUsername(String username) 
+	{	
 		Employee user = new Employee();
 		
-		try(Connection conn = ConnectionUtil.getConnection()) 
+		try(Connection conn = ConnectionUtil.getInstance().getConnection()) 
 		{
-			String sql = "SELECT * FROM EMPLOYEES JOIN JOB_ROLES "
-					+ "ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID WHERE USER_NAME = ?";
+			String sql = "SELECT EMPLOYEE_ID, FIRSTNAME, LASTNAME "
+					+ "FROM EMPLOYEES "
+					//+ "JOIN JOB_ROLES ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID "
+					+ "WHERE USER_NAME = ?";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setString(1, username);
-			
-//			List<Employee> users = this.mapResultSet(pstmt.executeQuery());
-//			if (!users.isEmpty()) user = users.get(0);
-			
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) 
 			{
 				user.setId(rs.getInt("EMPLOYEE_ID"));
 				user.setFirstName(rs.getString("FIRSTNAME"));
 				user.setLastName(rs.getString("LASTNAME"));
-				user.setUsername(rs.getString("USER_NAME"));
-				user.setPassword(rs.getString("PASS_WORD"));
-				//System.out.println(user);
-				
+				//user.setUsername(rs.getString("USER_NAME"));
+				//user.setUsername(rs.getString("EMAIL"));
+				//user.setUsername(rs.getString("JOB_ROLE"));
+				//user.setPassword(rs.getString("PASS_WORD"));
+				//System.out.println(user);		
 			}
-			
 		} 
-		
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		
 		return user;
 	}
 	
@@ -62,7 +57,7 @@ public class EmployeeDAO implements DAO<Employee> {
 		
 		Employee user = new Employee();
 		
-		try(Connection conn = ConnectionUtil.getConnection()) {
+		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
 			
 			String sql = "SELECT * FROM EMPLOYEES JOIN JOB_ROLES "
 					+ "ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID WHERE USER_NAME = ?";
@@ -106,7 +101,7 @@ public class EmployeeDAO implements DAO<Employee> {
 		
 		List<Employee> users = new ArrayList<>();
 		
-		try(Connection conn = ConnectionUtil.getConnection()) {
+		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
 			
 			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM EMPLOYEES JOIN JOB_ROLES "
 					+ "ON EMPLOYEES.EMPLOYEES_ID = JOB_ROLES.JOB_ROLES_ID");
@@ -132,10 +127,13 @@ public class EmployeeDAO implements DAO<Employee> {
 		
 		Employee user = new Employee();;
 		
-		try(Connection conn = ConnectionUtil.getConnection()) {
+		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
 			
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM EMPLOYEES JOIN JOB_ROLES "
-					+ "ON EMPLOYEE.JOB_ROLE_ID = JOB_ROLES.JOB_ROLES_ID WHERE EMPLOYEE_ID = ?");
+			PreparedStatement pstmt = conn.prepareStatement(
+					"SELECT USER_NAME, FIRSTNAME, LASTNAME "
+					+ "FROM EMPLOYEES "
+					//+ "JOIN JOB_ROLES ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID "
+					+ "WHERE EMPLOYEE_ID = ?");
 			pstmt.setInt(1, userId);
 			
 			
@@ -152,17 +150,10 @@ public class EmployeeDAO implements DAO<Employee> {
 				//System.out.println(user);
 				
 			}
-//			if (!users.isEmpty()) 
-			//{
-//				user = users.get(0);
-				//user.setPassword("*********");
-			//}
-			
 		} 
 			catch (SQLException e) {
 			//System.out.println(e.getMessage());
 		}
-		
 		return user;
 	}
 	
@@ -176,7 +167,7 @@ public class EmployeeDAO implements DAO<Employee> {
 		newRole.setRoleId(2);
 		newRole.setRoleName("EMPLOYEE");
 		
-		try(Connection conn = ConnectionUtil.getConnection()) {
+		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
 			
@@ -226,12 +217,12 @@ public class EmployeeDAO implements DAO<Employee> {
 	@Override
 	public Employee update(Employee  updatedEmployee ) {
 		
-		try(Connection conn = ConnectionUtil.getConnection()) {
+		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
 			
-			String sql = "UPDATE ers_users SET ers_password = ?, user_first_name = ?, user_last_name = ?, "
-					+ "user_email = ? WHERE ers_users_id = ?";
+			String sql = "UPDATE EMPLOYEE SET PASS_WORD = ?, FIRSTNAME = ?, LASTNAME = ?, "
+					+ "EMAIL = ? WHERE EMPLOYEE_ID = ?";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, updatedEmployee.getPassword());
@@ -271,13 +262,13 @@ public class EmployeeDAO implements DAO<Employee> {
 		
 		while(rs.next()) {
 			Employee user = new Employee();
-			user.setId(rs.getInt("ers_users_id"));
-			user.setUsername(rs.getString("ers_username"));
-			user.setPassword(rs.getString("ers_password"));
-			user.setFirstName(rs.getString("user_first_name"));
-			user.setLastName(rs.getString("user_last_name"));
-			user.setEmail(rs.getString("user_email"));
-			user.setRole(new Role(rs.getInt("user_role_id")));
+			user.setId(rs.getInt("EMPLOYEE_ID"));
+			user.setUsername(rs.getString("USER_NAME"));
+			user.setPassword(rs.getString("PASS_WORD"));
+			user.setFirstName(rs.getString("FIRSTNAME"));
+			user.setLastName(rs.getString("LASTNAME"));
+			user.setEmail(rs.getString("EMAIL"));
+			user.setRole(new Role(rs.getInt("JOB_ROLE_ID")));
 			users.add(user);
 		}
 		
