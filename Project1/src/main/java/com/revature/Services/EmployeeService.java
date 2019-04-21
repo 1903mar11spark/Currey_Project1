@@ -26,9 +26,11 @@ public class EmployeeService
 		Employee user = null;
 		
 		// Verify that neither of the credentials are empty string
-		if (!username.equals("") && !password.equals("")) {
+		if (!username.equals("") && !password.equals("")) 
+		{
 			user = employeeDao.getByCredentials(username, password);
-			if(user != null) {
+			if(user != null) 
+			{
 				return user;
 			}
 		}
@@ -37,11 +39,12 @@ public class EmployeeService
 		return null;
 	}
 	
-	public Employee add(Employee newUser) {
-
+	public Employee add(Employee newUser) 
+	{
 		// Verify that there are no empty fields
 		if (newUser.getUsername().equals("") || newUser.getPassword().equals("") || newUser.getFirstName().equals("")
-				|| newUser.getLastName().equals("") || newUser.getEmail().equals("")){
+				|| newUser.getLastName().equals("") || newUser.getEmail().equals(""))
+		{
 			System.out.println("New User had empty fields!");
 			return null;
 		}
@@ -49,11 +52,13 @@ public class EmployeeService
 		return employeeDao.add(newUser);
 	}
 	
-	public Employee update(Employee updatedUser) {
+	public Employee update(Employee updatedUser) 
+	{
 
 		// Verify that there are no empty fields
 		if (updatedUser.getUsername().equals("") || updatedUser.getPassword().equals("")
-				|| updatedUser.getFirstName().equals("") || updatedUser.getLastName().equals("") || updatedUser.getEmail().equals("")) {
+				|| updatedUser.getFirstName().equals("") || updatedUser.getLastName().equals("") || updatedUser.getEmail().equals("")) 
+		{
 			System.out.println("Updated User had empty fields!");
 			return null;
 		}
@@ -63,7 +68,8 @@ public class EmployeeService
 		
 
 		// If the update attempt was successful, update the currentUser of AppState, and return the updatedUser
-		if (persistedUser != null) {
+		if (persistedUser != null) 
+		{
 			return updatedUser;
 		}
 
@@ -71,7 +77,8 @@ public class EmployeeService
 		return null;
 	}
 	
-	public boolean delete(int userId) {
+	public boolean delete(int userId) 
+	{
 		return false;
 	}
 	

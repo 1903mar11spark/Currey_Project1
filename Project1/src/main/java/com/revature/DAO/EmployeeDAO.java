@@ -70,9 +70,7 @@ public class EmployeeDAO implements DAO<Employee> {
 			
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
-			
-//			List<Employee> users = this.mapResultSet(pstmt.executeQuery());
-//			if (!users.isEmpty()) user = users.get(0);
+						
 			
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -83,6 +81,7 @@ public class EmployeeDAO implements DAO<Employee> {
 				user.setLastName(rs.getString("LASTNAME"));
 				user.setUsername(rs.getString("USER_NAME"));
 				user.setPassword(rs.getString("PASS_WORD"));
+				user.setEmail(rs.getString("EMAIL"));
 				//System.out.println(user);
 				
 			}
@@ -99,9 +98,7 @@ public class EmployeeDAO implements DAO<Employee> {
 	
 	
 	
-	
-	
-	
+
 	
 	@Override
 	public List<Employee> getAll() 
@@ -133,7 +130,7 @@ public class EmployeeDAO implements DAO<Employee> {
 	@Override
 	public Employee getById(int userId) {
 		
-		Employee user = null;;
+		Employee user = new Employee();;
 		
 		try(Connection conn = ConnectionUtil.getConnection()) {
 			
@@ -141,15 +138,28 @@ public class EmployeeDAO implements DAO<Employee> {
 					+ "ON EMPLOYEE.JOB_ROLE_ID = JOB_ROLES.JOB_ROLES_ID WHERE EMPLOYEE_ID = ?");
 			pstmt.setInt(1, userId);
 			
+			
 			ResultSet rs = pstmt.executeQuery();
-			List<Employee> users = this.mapResultSet(rs);
-			
-			if (!users.isEmpty()) {
-				user = users.get(0);
-				user.setPassword("*********");
+			//List<Employee> users = this.mapResultSet(rs);
+			if(rs.next()) 
+			{
+				user.setId(rs.getInt("EMPLOYEE_ID"));
+				user.setFirstName(rs.getString("FIRSTNAME"));
+				user.setLastName(rs.getString("LASTNAME"));
+				user.setUsername(rs.getString("USER_NAME"));
+				user.setPassword(rs.getString("PASS_WORD"));
+				user.setEmail(rs.getString("EMAIL"));
+				//System.out.println(user);
+				
 			}
+//			if (!users.isEmpty()) 
+			//{
+//				user = users.get(0);
+				//user.setPassword("*********");
+			//}
 			
-		} catch (SQLException e) {
+		} 
+			catch (SQLException e) {
 			//System.out.println(e.getMessage());
 		}
 		
@@ -157,12 +167,7 @@ public class EmployeeDAO implements DAO<Employee> {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
+
 	
 	@Override
 	public Employee add(Employee newEmployee) {

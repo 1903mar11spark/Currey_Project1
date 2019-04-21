@@ -17,9 +17,12 @@ public class Role
 		switch(roleId) 
 		{
 			case 1:
-				this.roleName = "manager"; break;
+				this.roleName = "manager"; 
+				break;
 			case 2:
-				this.roleName = "employee"; break;
+				this.roleName = "employee"; 
+				break;
+				
 			default:
 				this.roleName = null;
 		}
@@ -35,9 +38,12 @@ public class Role
 		switch(roleName) 
 		{
 			case "manager":
-				this.roleId = 1; break;
+				this.roleId = 1; 
+				break;
 			case "employee":
-				this.roleId = 2; break;
+				this.roleId = 2; 
+				break;
+		
 			default:
 				this.roleId = 2;
 		}
@@ -104,6 +110,7 @@ public class Role
 		
 		
 		Role other = (Role) obj;
+		
 		if (roleId != other.roleId)
 			return false;
 		
@@ -116,6 +123,7 @@ public class Role
 		
 		else if (!roleName.equals(other.roleName))
 			return false;
+		
 		return true;
 	}
 

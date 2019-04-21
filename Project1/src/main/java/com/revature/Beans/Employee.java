@@ -147,6 +147,7 @@ public class Employee
 		if (id != other.id)
 			return false;
 		
+		
 		if (lastName == null) 
 		{
 			if (other.lastName != null)
