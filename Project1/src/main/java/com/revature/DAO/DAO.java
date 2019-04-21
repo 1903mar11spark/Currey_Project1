@@ -1,36 +1,13 @@
 package com.revature.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.List;
 
-
-public class DAO 
+public interface DAO<T> 
 {
-	protected static Connection connection = null;
-	protected static PreparedStatement stmt = null;
+	List<T> getAll();
+	T getById(int id);
+	T add(T obj);
+	T update(T updatedObj);
+	boolean delete(int id);
 	
-	protected static void closeResources()
-	{
-		try
-		{
-			if (stmt != null)
-				stmt.close();
-		} catch (SQLException e)
-		{
-			System.out.println("Could not close statement!");
-			e.printStackTrace();
-		}
-
-		try
-		{
-			if (connection != null)
-				connection.close();
-		} catch (SQLException e)
-		{
-			System.out.println("Could not close connection!");
-			e.printStackTrace();
-		}
-	}
-
 }

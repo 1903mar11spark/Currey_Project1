@@ -7,10 +7,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.revature.DAO.EmployeeDAO;
-import com.revature.DAO.EmployeeDAOImpl;
 
 public class ConnectionUtil {
+	private static ConnectionUtil cu = new ConnectionUtil();
+	
+	private ConnectionUtil() {
+		super();
+	}
+	
+	public static ConnectionUtil getInstance() {
+		return cu;
+	}
+	
 	private static final String DB_DRIVER_CLASS="driver.class.name";
 	private static final String DB_USERNAME="db.username";
 	private static final String DB_PASSWORD="db.password";
@@ -22,7 +30,7 @@ public class ConnectionUtil {
 	{
 		try {
 			properties = new Properties();
-			properties.load(new FileInputStream("src/main/resources/connection.prop"));
+			properties.load(new FileInputStream("src/main/java/Connection.prop"));
 			Class.forName(properties.getProperty(DB_DRIVER_CLASS));
 			connection = DriverManager.getConnection(properties.getProperty(DB_URL),properties.getProperty(DB_USERNAME) , properties.getProperty(DB_PASSWORD) );
 		} catch (ClassNotFoundException | SQLException | IOException e) {
@@ -34,7 +42,7 @@ public class ConnectionUtil {
 		
 			try {
 				properties = new Properties();
-				properties.load(new FileInputStream("src/main/Java/Connection.prop"));
+				properties.load(new FileInputStream("src/main/java/Connection.prop"));
 				Class.forName(properties.getProperty(DB_DRIVER_CLASS));
 				connection = DriverManager.getConnection(properties.getProperty(DB_URL),properties.getProperty(DB_USERNAME) , properties.getProperty(DB_PASSWORD) );
 			} catch (ClassNotFoundException | SQLException | IOException e) {
@@ -44,15 +52,5 @@ public class ConnectionUtil {
 		
 		return connection;
 	}
-	
-	
-//	public static RequestsDAO getReimburseDAO()
-//	{
-//		return new ReimbursementDAOImpl();
-//	}
 
-	public static EmployeeDAO getEmployeeDAO()
-	{
-		return new EmployeeDAOImpl();
-	}
 }
