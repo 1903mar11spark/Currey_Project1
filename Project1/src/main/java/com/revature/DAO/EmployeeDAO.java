@@ -59,14 +59,15 @@ public class EmployeeDAO implements DAO<Employee>
 		
 		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
 			
-			String sql = "SELECT * FROM EMPLOYEES JOIN JOB_ROLES "
-					+ "ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID WHERE USER_NAME = ?";
-			PreparedStatement pstmt =  conn.prepareStatement(sql);
+			String sql = "SELECT * FROM EMPLOYEES "
+					//////+ "JOIN JOB_ROLES "////
+					//////+ "ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLES_ID "/////
+					+ "WHERE USER_NAME = ? AND PASS_WORD = ?";
 			
+			PreparedStatement pstmt =  conn.prepareStatement(sql);
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 						
-			
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()) 
@@ -78,16 +79,12 @@ public class EmployeeDAO implements DAO<Employee>
 				user.setPassword(rs.getString("PASS_WORD"));
 				user.setEmail(rs.getString("EMAIL"));
 				//System.out.println(user);
-				
 			}
-			
-		} 
-		
+		} 		
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
-		}
-				
+		}	
 		return user;
 	}
 	

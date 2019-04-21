@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.revature.Beans.Principal;
-import com.revature.Services.EmployeeService;
 import com.revature.Beans.Employee;
+import com.revature.Services.EmployeeService;
 
 public class EmployeeServlet extends HttpServlet {
 
@@ -102,13 +102,11 @@ public class EmployeeServlet extends HttpServlet {
     
     
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException 
+    {
     	System.out.println("Request received by UserServlet.doPost()");
-    	
         Employee newUser = null;
         ObjectMapper mapper = new ObjectMapper();
-
         
 
         try 
@@ -120,15 +118,12 @@ public class EmployeeServlet extends HttpServlet {
         	System.out.println(mie.getMessage());
             resp.setStatus(400);
             return;
-
         } 
-        
         catch (Exception e) 
         {
         	System.out.println(e.getMessage());
             resp.setStatus(500);
             return;
-
         }
 
             
@@ -152,12 +147,11 @@ public class EmployeeServlet extends HttpServlet {
             String userJson = mapper.writeValueAsString(newUser);
             PrintWriter out = resp.getWriter();
             out.write(userJson);
-        } catch (Exception e) 
+        } 
+        catch (Exception e) 
         {
         	System.out.println(e.getMessage());
             resp.setStatus(500);
         }
-
     }
-
 }

@@ -9,20 +9,25 @@ public class EmployeeService
 {	
 	private EmployeeDAO employeeDao = new EmployeeDAO();
 	
-	public List<Employee> getAll() {
+	public List<Employee> getAll() 
+	{
 		return employeeDao.getAll();
 	}
 
-	public Employee getById(int userId) {
+	public Employee getById(int userId) 
+	{
 		return employeeDao.getById(userId);
 	}
 
-	public Employee getByUsername(String username) {
+	public Employee getByUsername(String username) 
+	{
 		return employeeDao.getByUsername(username);
 	}
 
-	public Employee getByCredentials(String username, String password) {
-
+	
+	//GET BY USERNAME & PASSWORD
+	public Employee getByCredentials(String username, String password) 
+	{
 		Employee user = null;
 		
 		// Verify that neither of the credentials are empty string
@@ -39,11 +44,17 @@ public class EmployeeService
 		return null;
 	}
 	
+	
+	
+	//ADD
 	public Employee add(Employee newUser) 
 	{
 		// Verify that there are no empty fields
-		if (newUser.getUsername().equals("") || newUser.getPassword().equals("") || newUser.getFirstName().equals("")
-				|| newUser.getLastName().equals("") || newUser.getEmail().equals(""))
+		if (newUser.getUsername().equals("") 
+				|| newUser.getPassword().equals("") 
+				|| newUser.getFirstName().equals("")
+				|| newUser.getLastName().equals("") 
+				|| newUser.getEmail().equals(""))
 		{
 			System.out.println("New User had empty fields!");
 			return null;
@@ -52,30 +63,41 @@ public class EmployeeService
 		return employeeDao.add(newUser);
 	}
 	
+	
+	
+	
+	
+	//UPDATE
 	public Employee update(Employee updatedUser) 
 	{
 
 		// Verify that there are no empty fields
-		if (updatedUser.getUsername().equals("") || updatedUser.getPassword().equals("")
-				|| updatedUser.getFirstName().equals("") || updatedUser.getLastName().equals("") || updatedUser.getEmail().equals("")) 
+		if (updatedUser.getUsername().equals("") 
+				|| updatedUser.getPassword().equals("")
+				|| updatedUser.getFirstName().equals("") 
+				|| updatedUser.getLastName().equals("") 
+				|| updatedUser.getEmail().equals("")) 
 		{
 			System.out.println("Updated User had empty fields!");
 			return null;
 		}
 		
+		
 		// Attempt to persist the user to the dataset
 		Employee persistedUser = employeeDao.update(updatedUser);
 		
-
-		// If the update attempt was successful, update the currentUser of AppState, and return the updatedUser
+	
+		// If the update attempt was successful, 
+		//update the currentUser of AppState, and return the updatedUser
 		if (persistedUser != null) 
 		{
 			return updatedUser;
 		}
-
 		// If the update attempt was unsuccessful, return null
 		return null;
 	}
+	
+	
 	
 	public boolean delete(int userId) 
 	{
