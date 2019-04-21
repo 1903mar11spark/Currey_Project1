@@ -91,8 +91,8 @@ public class Employee
 	public Role getRole() {
 		return role;
 	}
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole(Role newRole) {
+		this.role = newRole;
 	}
 
 	
@@ -193,6 +193,13 @@ public class Employee
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
+	}
+
+
+
+	public void setRole(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

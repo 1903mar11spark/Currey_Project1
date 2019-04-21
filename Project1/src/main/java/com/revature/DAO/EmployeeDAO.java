@@ -20,9 +20,9 @@ public class EmployeeDAO implements DAO<Employee>
 		
 		try(Connection conn = ConnectionUtil.getInstance().getConnection()) 
 		{
-			String sql = "SELECT EMPLOYEE_ID, FIRSTNAME, LASTNAME "
-					+ "FROM EMPLOYEES "
-					//+ "JOIN JOB_ROLES ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID "
+			String sql = "SELECT EMPLOYEE_ID, FIRSTNAME, LASTNAME, USER_NAME, EMAIL"
+					+ " FROM EMPLOYEES JOIN JOB_ROLES "
+					+ "ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID "
 					+ "WHERE USER_NAME = ?";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -34,9 +34,9 @@ public class EmployeeDAO implements DAO<Employee>
 				user.setId(rs.getInt("EMPLOYEE_ID"));
 				user.setFirstName(rs.getString("FIRSTNAME"));
 				user.setLastName(rs.getString("LASTNAME"));
-				//user.setUsername(rs.getString("USER_NAME"));
-				//user.setUsername(rs.getString("EMAIL"));
-				//user.setUsername(rs.getString("JOB_ROLE"));
+				user.setUsername(rs.getString("USER_NAME"));
+				user.setEmail(rs.getString("EMAIL"));
+				//user.setRole(rs.getString("JOB_ROLE"));
 				//user.setPassword(rs.getString("PASS_WORD"));
 				//System.out.println(user);		
 			}
@@ -138,7 +138,7 @@ public class EmployeeDAO implements DAO<Employee>
 			
 			
 			ResultSet rs = pstmt.executeQuery();
-			//List<Employee> users = this.mapResultSet(rs);
+		
 			if(rs.next()) 
 			{
 				user.setId(rs.getInt("EMPLOYEE_ID"));

@@ -1,33 +1,39 @@
 package com.revature.Beans;
 
-public class Principal {
+public class Principal 
+{
 	
-	//JWT will take a string for the id and Role
 	private String id;
 	private String role;
 	
-	public Principal() {
+	public Principal() 
+	{
 		super();
 	}
 
-	public String getId() {
+	public String getId() 
+	{
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id) 
+	{
 		this.id = id;
 	}
 
-	public String getRole() {
+	public String getRole() 
+	{
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(String role) 
+	{
 		this.role = role;
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Principal [id=" + id + ", role=" + role + "]";
 	}
 

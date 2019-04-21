@@ -8,10 +8,10 @@ public class Main
 	 {
 		 EmployeeDAO edaoimpl = new EmployeeDAO();
 		 
-		 //System.out.println(edaoimpl.getByUsername("shawkurr"));
+		 System.out.println(edaoimpl.getByUsername("shawkurr"));
 		 
 		 //System.out.println(edaoimpl.getByCredentials("shawkurr", "12345"));
-		 System.out.println(edaoimpl.getById(1));
+		 //System.out.println(edaoimpl.getById(1));
 		 
 }
 }
