@@ -28,14 +28,5 @@
     <servlet-name>EmployeeServlet</servlet-name>
     <url-pattern>/EmployeeServlet</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ServletLogin</display-name>
-    <servlet-name>ServletLogin</servlet-name>
-    <servlet-class>com.revature.Servlets.ServletLogin</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ServletLogin</servlet-name>
-    <url-pattern>/ServletLogin</url-pattern>
-  </servlet-mapping>
+  
 </web-app>
