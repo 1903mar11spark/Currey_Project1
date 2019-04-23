@@ -10,7 +10,8 @@ import javax.servlet.http.HttpSession;
 import com.revature.Beans.Employee;
 import com.revature.Services.EmployeeService;
 
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet 
+{
 
 	private static final long serialVersionUID = 1L;
        
@@ -20,44 +21,59 @@ public class LoginServlet extends HttpServlet {
     
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("Login.html").forward(request, response);
+	
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {
+    	//System.out.println("line 26");
+    	request.getRequestDispatcher("Login.HTML").forward(request, response);
+    	
+    	//doPost(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// check whether session exists, and create one if not
-		// overloaded version takes a boolean parameter, if false returns null when there is none
+	
+    
+    
+    
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		
 		//HttpSession session = request.getSession();
+		//session.setMaxInactiveInterval(5*60); //5 minutes
 		
+		//System.out.println("line 43");
 		
-		//grab credentials from request
-		// user = new Employee(0, request.getParameter("username"), request.getParameter("password"), null, null, null, null);
-		//attempt to authenticate user
-		//User u = as.isValidUser(creds);
-		
-		
+		//System.out.println(request.getParameter("user"));
 		EmployeeService es = new EmployeeService();
+		System.out.println(request);
+		String user = request.getParameter("user");
+		System.out.println(user);
+		String pass = request.getParameter("password");
+		System.out.println(pass);
+		es.getByCredentials(user, pass);
 		
-		if (es.getByCredentials(request.getParameter("username"), request.getParameter("password"))!= null) {
+		
+		
+		
+		if (es.getByCredentials(request.getParameter("user"), request.getParameter("password"))!= null) 
+		{
 			//set user information as session attributes (not request attributes!)
-//			session.setAttribute("userId", u.getId());
-//			session.setAttribute("username", u.getUsername());
-//			session.setAttribute("firstname", u.getFirstname());
-//			session.setAttribute("lastname", u.getLastname());
-//			session.setAttribute("email", u.getEmail());
-//			session.setAttribute("problem", null);
-			//redirect user to profile page if authenticated
-			response.sendRedirect("profile");
-		} else {
+			//session.setAttribute("userId", es.getById(0));
+			//session.setAttribute("username", es.getByUsername(user));
+			//session.setAttribute("firstname", es.getByFirstname());
+			//session.setAttribute("lastname", es.getLastname());
+			//session.setAttribute("email", es.getEmail());
+			//session.setAttribute("problem", null);
+			
+			
+			//redirect user to profile page if authenticated 
+			System.out.println("line 69");
+			response.sendRedirect("EmployeeHomePage.html");
+		} 
+		else 
+		{
 			//session.setAttribute("problem", "invalid credentials");
 			//otherwise redirect to login page
-			response.sendRedirect("LoginServlet");
+			response.sendRedirect("login");
 		}
 	}
 

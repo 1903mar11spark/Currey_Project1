@@ -1,0 +1,3 @@
+url= jdbc:oracle:thin:@spark-1903mar11.cwt1bodg2tuf.us-east-2.rds.amazonaws.com:1521:ORCL
+username=ShawkurrP1
+password=Willband1

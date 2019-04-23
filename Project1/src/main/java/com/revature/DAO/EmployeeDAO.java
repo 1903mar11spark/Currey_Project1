@@ -1,5 +1,6 @@
 package com.revature.DAO;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class EmployeeDAO implements DAO<Employee>
 	{	
 		Employee user = new Employee();
 		
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) 
+		try(Connection conn = ConnectionUtil.getConnectionFromFile()) 
 		{
 			String sql = "SELECT EMPLOYEE_ID, FIRSTNAME, LASTNAME, USER_NAME, EMAIL"
 					+ " FROM EMPLOYEES JOIN JOB_ROLES "
@@ -41,7 +42,7 @@ public class EmployeeDAO implements DAO<Employee>
 				//System.out.println(user);		
 			}
 		} 
-		catch (SQLException e) 
+		catch (SQLException | IOException e) 
 		{
 			e.printStackTrace();
 		}
@@ -57,11 +58,11 @@ public class EmployeeDAO implements DAO<Employee>
 		
 		Employee user = new Employee();
 		
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			
 			String sql = "SELECT * FROM EMPLOYEES "
-					//////+ "JOIN JOB_ROLES "////
-					//////+ "ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLES_ID "/////
+					+ "JOIN JOB_ROLES "
+					+ "ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID "
 					+ "WHERE USER_NAME = ? AND PASS_WORD = ?";
 			
 			PreparedStatement pstmt =  conn.prepareStatement(sql);
@@ -78,10 +79,16 @@ public class EmployeeDAO implements DAO<Employee>
 				user.setUsername(rs.getString("USER_NAME"));
 				user.setPassword(rs.getString("PASS_WORD"));
 				user.setEmail(rs.getString("EMAIL"));
+				
+				int i = rs.getInt("JOB_ROLE_ID");		//get values for role
+				String man = rs.getString("JOB_ROLE");
+				user.setRole(new Role(i,man));			//set values in user
+				
+				//user.setRole(rs.getString("JOB_ROLE"));
 				//System.out.println(user);
 			}
 		} 		
-		catch (SQLException e) 
+		catch (SQLException | IOException e) 
 		{
 			e.printStackTrace();
 		}	
@@ -98,7 +105,7 @@ public class EmployeeDAO implements DAO<Employee>
 		
 		List<Employee> users = new ArrayList<>();
 		
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			
 			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM EMPLOYEES JOIN JOB_ROLES "
 					+ "ON EMPLOYEES.EMPLOYEES_ID = JOB_ROLES.JOB_ROLES_ID");
@@ -106,7 +113,7 @@ public class EmployeeDAO implements DAO<Employee>
 			
 			users.forEach(u -> u.setPassword("*********"));
 			
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			//System.out.println(e.getMessage());
 		}
 		
@@ -124,12 +131,12 @@ public class EmployeeDAO implements DAO<Employee>
 		
 		Employee user = new Employee();;
 		
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			
 			PreparedStatement pstmt = conn.prepareStatement(
 					"SELECT USER_NAME, FIRSTNAME, LASTNAME "
 					+ "FROM EMPLOYEES "
-					//+ "JOIN JOB_ROLES ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID "
+					+ "JOIN JOB_ROLES ON EMPLOYEES.EMPLOYEE_ID = JOB_ROLES.JOB_ROLE_ID "
 					+ "WHERE EMPLOYEE_ID = ?");
 			pstmt.setInt(1, userId);
 			
@@ -148,7 +155,7 @@ public class EmployeeDAO implements DAO<Employee>
 				
 			}
 		} 
-			catch (SQLException e) {
+			catch (SQLException | IOException e) {
 			//System.out.println(e.getMessage());
 		}
 		return user;
@@ -164,7 +171,7 @@ public class EmployeeDAO implements DAO<Employee>
 		newRole.setRoleId(2);
 		newRole.setRoleName("EMPLOYEE");
 		
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			
 			conn.setAutoCommit(false);
 			
@@ -194,7 +201,7 @@ public class EmployeeDAO implements DAO<Employee>
 				
 			}
 					
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			//System.out.println(e.getMessage());
 		}
 		
@@ -214,7 +221,7 @@ public class EmployeeDAO implements DAO<Employee>
 	@Override
 	public Employee update(Employee  updatedEmployee ) {
 		
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			
 			conn.setAutoCommit(false);
 			
@@ -233,7 +240,7 @@ public class EmployeeDAO implements DAO<Employee>
 				return updatedEmployee;
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			//System.out.println(e.getMessage());
 		}
 		
