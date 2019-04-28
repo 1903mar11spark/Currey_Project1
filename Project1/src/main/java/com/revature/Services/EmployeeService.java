@@ -39,7 +39,6 @@ public class EmployeeService
 				return user;
 			}
 		}
-		
 		System.out.println("Username and/or password is empty!");
 		return null;
 	}
