@@ -3,26 +3,6 @@ window.onload = function()
     loadLogin();
 }
 
-/*
-Login component
-    - loadLogin()
-    - configureLogin()
-    - login()
-*/
-async function loadLogin() 
-{
-    APP_VIEW.innerHTML = await fetchView('login.view');
-    DYNAMIC_CSS_LINK.href = 'css/login.css';
-    configureLogin();
-}
-
-function configureLogin() 
-{
-    localStorage.clear();
-    document.getElementById('alert-msg').hidden = true;
-    document.getElementById('submit-creds').addEventListener('click', login);
-    document.getElementById('register-button').addEventListener('click', loadRegister);
-}
 
 async function login() 
 {
@@ -48,24 +28,14 @@ async function login()
         localStorage.setItem('jwt', response.headers.get('Authorization'));
         getDashboard();
     } 
-
     else 
     {
         document.getElementById('alert-msg').hidden = false;
     }
 }
-
-async function getDashboard() 
-{
-    let response = await fetch('users',{
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-            'Authorization' : localStorage.getItem('jwt')
-        }   
-    });
     
 let results = await response.json();
+
 
 if (results.constructor === Array) 
 {
@@ -75,7 +45,7 @@ else
 {
     loadEmployee();
 }
-}
+
 
 //-----------------------------------------------------------------------------------------
 
@@ -126,17 +96,14 @@ function validateUsername(event)
         {  
             document.getElementById('register-password').disabled = true;
         }   
-
         if(document.getElementById('register-password').value == '')
         {
             document.getElementById('register-first-name').disabled = true;
         }
-
         if(document.getElementById('register-first-name').value == '')
         {
             document.getElementById('register-last-name').disabled = true;
         }
-
         if(document.getElementById('register-last-name').value == '')
         {
             document.getElementById('register-email').disabled = true;
@@ -160,12 +127,10 @@ function validatePassword(event)
         {
             document.getElementById('register-first-name').disabled = true;
         }
-
         if(document.getElementById('register-first-name').value == '')
         {
             document.getElementById('register-last-name').disabled = true;
         }
-
         if(document.getElementById('register-last-name').value == '')
         {
             document.getElementById('register-email').disabled = true;
@@ -173,7 +138,6 @@ function validatePassword(event)
 
         document.getElementById('register-account').disabled = true;
     }
-
     else
     {
         document.getElementById('register-first-name').disabled = false;
@@ -245,7 +209,6 @@ function undisableRegisterButton()
     {
         document.getElementById('register-account').disabled = false;
     } 
-    
     else 
     {
         document.getElementById('register-account').disabled = true;
@@ -254,7 +217,6 @@ function undisableRegisterButton()
 
 async function register() 
 {
-
     let newUser = 
     {
         id: 0,
@@ -291,7 +253,6 @@ async function register()
         setTimeout(loadLogin, 3000);
         
     } 
-
     else 
     {
         document.getElementById('alert-msg-registration').hidden = false;
@@ -383,10 +344,8 @@ function createResultsContainer(results)
 
 
 
-
-
 /*
-Manager component
+Manager component--------------------------
 */
 
 async function loadManager() 
@@ -417,7 +376,6 @@ async function getAllReimRequests()
         }
         
     });
-    
     let results = await response.json();
 
     getUsersInfo(results);
@@ -434,154 +392,11 @@ async function getUsersInfo(results)
             'Authorization' : localStorage.getItem('jwt')
         }   
     });
-
     let resultsTwo = await response.json();
 
     createResultsContainerTwo(results, resultsTwo);
 }   
 
-
-
-function createResultsContainerTwo(results, resultsTwo) 
-{
-
-    for(let i=0; i < results.length; i++) 
-    {
-
-        let row = document.createElement('tr');
-
-        let reimbIdCell = document.createElement('td');
-        reimbIdCell.setAttribute('id', `reimb-id-cell${i}`);
-        document.getElementById(`reimb-id-cell${i}`);
-
-        let firstNameCell = document.createElement('td');
-        let lastNameCell = document.createElement('td');
-        let amountCell = document.createElement('td');
-        amountCell.setAttribute('id', `amount-cell${i}`);
-        document.getElementById(`amount-cell${i}`);
-        let submittedCell = document.createElement('td');
-        submittedCell.setAttribute('id', `submitted-cell${i}`);
-        document.getElementById(`submitted-cell${i}`);
-        let resolvedCell = document.createElement('td');
-        let descriptionCell = document.createElement('td');
-        descriptionCell.setAttribute('id', `description-cell${i}`);
-        document.getElementById(`description-cell${i}`);
-        let authorCell = document.createElement('td');
-        authorCell.setAttribute('id', `author-cell${i}`);
-        document.getElementById(`author-cell${i}`);
-        let resolverCell = document.createElement('td');
-        let statusCell = document.createElement('td');
-        let typeCell = document.createElement('td');
-        typeCell.setAttribute('id', `type-cell${i}`);
-        document.getElementById(`type-cell${i}`);
-        let approveCell = document.createElement('td');
-        let denyCell = document.createElement('td');
-
-        row.appendChild(reimbIdCell);
-        row.appendChild(firstNameCell);
-        row.appendChild(lastNameCell);
-        row.appendChild(amountCell);
-        row.appendChild(submittedCell);
-        row.appendChild(resolvedCell);
-        row.appendChild(descriptionCell);
-        row.appendChild(authorCell);
-        row.appendChild(resolverCell);
-        row.appendChild(statusCell);
-        row.appendChild(typeCell);
-        row.appendChild(approveCell);
-        row.appendChild(denyCell);
-
-        document.getElementById('employee-reimbursements').appendChild(row);
-
-        reimbIdCell.innerText = results[i].id;
-        for(let j=0; j < resultsTwo.length; j++) 
-        {
-            if(resultsTwo[j].id == results[i].author) 
-            {
-                firstNameCell.innerText = resultsTwo[j].firstName;
-                lastNameCell.innerText = resultsTwo[j].lastName;
-            }
-        }
-        amountCell.innerText = results[i].amount;
-        submittedCell.innerText = results[i].submitted;
-        if(results[i].resolved == null) 
-        {
-            resolvedCell.innerText = 'pending';
-        } 
-        else 
-        {
-            resolvedCell.innerText = results[i].resolved;
-        }
-        descriptionCell.innerText = results[i].description;
-        authorCell.innerText = results[i].author;
-        if(results[i].resolver > 0) {
-            resolverCell.innerText = results[i].resolver;
-        } else {
-            resolverCell.innerText = 'pending';
-        }
-        statusCell.innerText = results[i].reimbStatus.reimbStatusName;
-        typeCell.innerText = results[i].reimbType.reimbTypeName;
-
-        if(results[i].reimbStatus.reimbStatusName == 'pending') 
-        {
-        
-            approveCell.innerHTML = `<button id="approve-button${i}" class="btn btn-primary">Approve</button>`;
-            denyCell.innerHTML = `<button id="deny-button${i}" class="btn btn-primary">Deny</button>`;
-
-            document.getElementById(`approve-button${i}`).onclick = function() 
-            {
-                document.getElementById(`approve-button${i}`).disabled = true;
-                document.getElementById(`deny-button${i}`).disabled = true;
-                
-                let reimbId = document.getElementById(`reimb-id-cell${i}`).innerText;
-                let amount = document.getElementById(`amount-cell${i}`).innerText;
-                let submitted = document.getElementById(`submitted-cell${i}`).innerText;
-                let description = document.getElementById(`description-cell${i}`).innerText;
-                let author = document.getElementById(`author-cell${i}`).innerText;
-                let type = document.getElementById(`type-cell${i}`).innerText;
-
-                approveReimbursementRequest(reimbId, amount, submitted, description, author, type);
-            }
-            
-            document.getElementById(`deny-button${i}`).onclick = function() 
-            {
-                document.getElementById(`approve-button${i}`).disabled = true;
-                document.getElementById(`deny-button${i}`).disabled = true;
-
-                let reimbId = document.getElementById(`reimb-id-cell${i}`).innerText;
-                let amount = document.getElementById(`amount-cell${i}`).innerText;
-                let submitted = document.getElementById(`submitted-cell${i}`).innerText;
-                let description = document.getElementById(`description-cell${i}`).innerText;
-                let author = document.getElementById(`author-cell${i}`).innerText;
-                let type = document.getElementById(`type-cell${i}`).innerText;
-
-                denyReimbursementRequest(reimbId, amount, submitted, description, author, type);
-            }
-        }
-
-        document.getElementById('filter-by-status').onclick = function() 
-        {
-
-            let reimbursementStatus = document.getElementById('reim-status');
-            let reimbStatusValue = reimbursementStatus.options[reimbursementStatus.selectedIndex].value;
-            let rowElements = document.getElementsByTagName('tr');
-
-            for(let j=1; j < rowElements.length; j++) 
-            {
-                rowElements[j].setAttribute('id', `table-row${j}`);
-
-                if(rowElements[j].cells[9].innerText == reimbStatusValue) 
-                {
-                    document.getElementById(`table-row${j}`).hidden = false;
-                } 
-                else 
-                {
-                    document.getElementById(`table-row${j}`).hidden = true;
-                }
-            }
-        }
-    }
-}
 
 //------------------------------------------------------------------------------------
 //New Reimbursement component
@@ -852,23 +667,6 @@ async function denyReimbursementRequest(reimbId, amount, submitted, description,
     return responseBody;
 }
 
-//-------------------------------------------------------------------------------------
-async function fetchView(uri) 
-{
-    let response = await fetch(uri, 
-        {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-            'Authorization': localStorage.getItem('jwt')
-        }
-    });
 
-    if(response.status == 401) loadLogin();
-    return await response.text();
-}
 
-//-------------------------------------------------------------------------------------
 
-const APP_VIEW = document.getElementById('app-view');
-const DYNAMIC_CSS_LINK = document.getElementById('dynamic-css');
