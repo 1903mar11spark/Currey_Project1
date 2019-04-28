@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.revature.Beans.Employee;
+import com.revature.DAO.EmployeeDAO;
 import com.revature.Services.EmployeeService;
 
 public class LoginServlet extends HttpServlet 
@@ -37,12 +38,21 @@ public class LoginServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		
-		//HttpSession session = request.getSession();
-		//session.setMaxInactiveInterval(5*60); //5 minutes
+		//check whether session exists, and create one if not
+		//overloaded version takes a boolean parameter, 
+		//if false returns null when there is none
 		
-		//System.out.println("line 43");
+		HttpSession session = request.getSession();
+		//response.setContentType("text/html");
+		
+//		Employee empl = null;
+//		EmployeeDAO emplDAO = new EmployeeDAO();
+		
+		
+		
 		
 		//System.out.println(request.getParameter("user"));
+		//grab credentials from request
 		EmployeeService es = new EmployeeService();
 		System.out.println(request);
 		String user = request.getParameter("user");
@@ -57,18 +67,19 @@ public class LoginServlet extends HttpServlet
 		if (es.getByCredentials(request.getParameter("user"), request.getParameter("password"))!= null) 
 		{
 			//set user information as session attributes (not request attributes!)
-			//session.setAttribute("userId", es.getById(0));
-			//session.setAttribute("username", es.getByUsername(user));
-			//session.setAttribute("firstname", es.getByFirstname());
-			//session.setAttribute("lastname", es.getLastname());
-			//session.setAttribute("email", es.getEmail());
-			//session.setAttribute("problem", null);
+			session.setAttribute("userId", es.getById(0));
+			session.setAttribute("username", es.getByUsername(user));
+//			session.setAttribute("firstname", es.getByFirstname());
+//			session.setAttribute("lastname", es.getLastname());
+//			session.setAttribute("email", es.getEmail());
+			session.setAttribute("problem", null);
 			
 			
 			//redirect user to profile page if authenticated 
-			System.out.println("line 69");
+			//System.out.println("line 69");
 			response.sendRedirect("EmployeeHomePage.html");
 		} 
+		
 		else 
 		{
 			//session.setAttribute("problem", "invalid credentials");

@@ -24,7 +24,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/shawn/Downloads/ojdbc7-12.1.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shawn/Downloads/ojdbc7-12.1.0.2.jar"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
