@@ -3,7 +3,6 @@ window.onload = function()
     loadLogin();
 }
 
-
 async function login() 
 {
     let credentials = [];
@@ -46,19 +45,7 @@ else
     loadEmployee();
 }
 
-
 //-----------------------------------------------------------------------------------------
-
-/*
-Register component
-
-    - loadRegister()
-    - configureRegister()
-    ...
-    ...
-    ...
-    - register()
-*/
 
 async function loadRegister() 
 {
@@ -87,6 +74,7 @@ function configureRegister()
     document.getElementById('register-email').disabled = true;
     document.getElementById('register-account').disabled = true;
 }
+
 
 function validateUsername(event) 
 {
@@ -144,6 +132,7 @@ function validatePassword(event)
     }
 }
 
+
 function validateFirstName(event) 
 {
     if(!(/^[a-zA-Z ]+$/.test(event.target.value)))
@@ -167,6 +156,7 @@ function validateFirstName(event)
     }
 }
 
+
 function validateLastName(event) 
 {
     if(!(/^[a-zA-Z ]+$/.test(event.target.value)))
@@ -185,6 +175,7 @@ function validateLastName(event)
     }
 }
 
+
 function validateEmail(event) 
 {
     if(!(/\S+@\S+\.\S+/.test(event.target.value)))
@@ -196,6 +187,7 @@ function validateEmail(event)
         document.getElementById('register-account').disabled = false;
     }
 }
+
 
 function undisableRegisterButton() 
 {
@@ -214,6 +206,7 @@ function undisableRegisterButton()
         document.getElementById('register-account').disabled = true;
     }  
 }
+
 
 async function register() 
 {
@@ -246,6 +239,7 @@ async function register()
         return;
     }
 
+
     if(responseBody != null) 
     {    
         document.getElementById('alert-msg-registration').hidden = true;
@@ -261,10 +255,6 @@ async function register()
 }
 
 //-------------------------------------------------------------------------------------
-
-/*
-Employee component
-*/
 
 async function loadEmployee() 
 {
@@ -342,11 +332,7 @@ function createResultsContainer(results)
     }
 }
 
-
-
-/*
-Manager component--------------------------
-*/
+//-----------------------------------------------------------------------------------------
 
 async function loadManager() 
 {
@@ -398,8 +384,7 @@ async function getUsersInfo(results)
 }   
 
 
-//------------------------------------------------------------------------------------
-//New Reimbursement component
+//------------------------------------------------------------------------------------s
 
 async function loadReimbursement() 
 {
@@ -666,7 +651,3 @@ async function denyReimbursementRequest(reimbId, amount, submitted, description,
     let responseBody = await response.json();
     return responseBody;
 }
-
-
-
-
