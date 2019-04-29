@@ -54,11 +54,13 @@ public class EmployeeDAO implements DAO<Employee>
 	
 	
 	
-	public Employee getByCredentials(String username, String password) {
+	public Employee getByCredentials(String username, String password) 
+	{
 		
 		Employee user = new Employee();
 		
-		try(Connection conn = ConnectionUtil.getConnectionFromFile()) {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile()) 
+		{
 			
 			String sql = "SELECT * FROM EMPLOYEES "
 					+ "JOIN JOB_ROLES "

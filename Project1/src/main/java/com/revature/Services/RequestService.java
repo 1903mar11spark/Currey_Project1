@@ -19,10 +19,14 @@ public class RequestService
 		return reqDao.getById(reimbId);
 	}
 	
+	
+	
 	public List<Requests> getByAuthor(int reqAuthor) 
 	{
 		return reqDao.getByAuthor(reqAuthor);
 	}
+	
+	
 	
 	public Requests add(Requests newRequests) 
 	{

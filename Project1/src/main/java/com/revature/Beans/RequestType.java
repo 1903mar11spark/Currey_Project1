@@ -5,7 +5,8 @@ public class RequestType {
 	private int reqTypeId;
 	private String reqTypeName;
 	
-	public RequestType() {
+	public RequestType() 
+	{
 		super();
 	}
 	
@@ -26,11 +27,13 @@ public class RequestType {
 		}
 	}
 	
-	public RequestType(String reqTypeName) {
+	public RequestType(String reqTypeName) 
+	{
 		super();
 		this.reqTypeName = reqTypeName;
 		
-		switch(reqTypeName) {
+		switch(reqTypeName) 
+		{
 		case "lodging":
 			this.reqTypeId = 1; break;
 		case "travel":
@@ -44,30 +47,36 @@ public class RequestType {
 		}
 	}
 	
-	public RequestType(int reqTypeId, String reqTypeName) {
+	public RequestType(int reqTypeId, String reqTypeName) 
+	{
 		super();
 		this.reqTypeId = reqTypeId;
 		this.reqTypeName = reqTypeName;
 	}
 
-	public int getReqTypeId() {
+	public int getReqTypeId() 
+	{
 		return reqTypeId;
 	}
 
-	public void setReqTypeId(int reqTypeId) {
+	public void setReqTypeId(int reqTypeId) 
+	{
 		this.reqTypeId = reqTypeId;
 	}
 
-	public String getReqTypeName() {
+	public String getReqTypeName() 
+	{
 		return reqTypeName;
 	}
 
-	public void setReqTypeName(String reqTypeName) {
+	public void setReqTypeName(String reqTypeName) 
+	{
 		this.reqTypeName = reqTypeName;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + reqTypeId;
@@ -76,7 +85,8 @@ public class RequestType {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -95,7 +105,8 @@ public class RequestType {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "ReimbursementType [reimbTypeId=" + reqTypeId + ", reimbTypeName=" + reqTypeName + "]";
 	}
 	

@@ -17,15 +17,18 @@ import com.revature.Util.ConnectionUtil;
 
 import oracle.jdbc.internal.OracleTypes;
 
-public class RequestDAO implements DAO<Requests> {
+public class RequestDAO implements DAO<Requests> 
+{
 	
 	
 	@Override
-	public List<Requests> getAll() {
+	public List<Requests> getAll() 
+	{
 
 		List<Requests> requests = new ArrayList<>();
 
-		try (Connection conn = ConnectionUtil.getConnectionFromFile())  {
+		try (Connection conn = ConnectionUtil.getConnectionFromFile())  
+		{
 
 			CallableStatement cstmt = conn.prepareCall("{CALL GET_ALL_REQUESTS(?)}");
 			cstmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -34,7 +37,8 @@ public class RequestDAO implements DAO<Requests> {
 			ResultSet rs = (ResultSet) cstmt.getObject(1);
 			requests = this.mapResultSet(rs);
 
-		} catch (SQLException | IOException e) 
+		} 
+		catch (SQLException | IOException e) 
 		{
 			System.out.println(e.getMessage());
 		}
@@ -43,11 +47,13 @@ public class RequestDAO implements DAO<Requests> {
 	}
 	
 	@Override
-	public Requests getById(int reqId) {
+	public Requests getById(int reqId) 
+	{
 		
 		Requests requests = new Requests();
 
-		try (Connection conn = ConnectionUtil.getConnectionFromFile())  {
+		try (Connection conn = ConnectionUtil.getConnectionFromFile())  
+		{
 
 			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM REQUESTS WHERE REQUEST_ID = ?");
 			pstmt.setInt(1, reqId);
@@ -55,14 +61,17 @@ public class RequestDAO implements DAO<Requests> {
 			ResultSet rs = pstmt.executeQuery();
 			requests = this.mapResultSet(rs).get(0);
 
-		} catch (SQLException | IOException e) {
+		} 
+		catch (SQLException | IOException e) 
+		{
 			System.out.println(e.getMessage());
 		}
 
 		return requests;
 	}
 	
-	public List<Requests> getByAuthor(int author) {
+	public List<Requests> getByAuthor(int author) 
+	{
 		
 		List<Requests> requestsList = new ArrayList<>();
 		
@@ -95,7 +104,9 @@ public class RequestDAO implements DAO<Requests> {
 				requestsList.add(temp);
 			}
 			
-		} catch (SQLException | IOException e) {
+		} 
+		catch (SQLException | IOException e) 
+		{
 			e.printStackTrace();
 		}
 		
@@ -103,9 +114,11 @@ public class RequestDAO implements DAO<Requests> {
 	}
 	
 	@Override
-	public Requests add(Requests newRequest) {
+	public Requests add(Requests newRequest) 
+	{
 		
-		try(Connection conn = ConnectionUtil.getConnectionFromFile())  {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile())  
+		{
 			
 			conn.setAutoCommit(false);
 			
@@ -134,7 +147,8 @@ public class RequestDAO implements DAO<Requests> {
 				
 			}
 					
-		} catch (SQLException | IOException e) {
+		} catch (SQLException | IOException e) 
+		{
 			e.printStackTrace();
 		}
 		
@@ -144,9 +158,11 @@ public class RequestDAO implements DAO<Requests> {
 	}
 	
 	@Override
-	public Requests update(Requests updatedRequests) {
+	public Requests update(Requests updatedRequests) 
+	{
 		
-		try(Connection conn = ConnectionUtil.getConnectionFromFile())  {
+		try(Connection conn = ConnectionUtil.getConnectionFromFile())  
+		{
 			
 			conn.setAutoCommit(false);
 			
@@ -162,12 +178,14 @@ public class RequestDAO implements DAO<Requests> {
 			pstmt.setInt(6, updatedRequests.getReqType().getReqTypeId());
 			pstmt.setInt(7, updatedRequests.getId());
 			
-			if(pstmt.executeUpdate() != 0) {
+			if(pstmt.executeUpdate() != 0) 
+			{
 				conn.commit();
 				return updatedRequests;
 			}
 			
-		} catch (SQLException | IOException e) {
+		} catch (SQLException | IOException e) 
+		{
 			System.out.println(e.getMessage());
 		}
 		
@@ -175,15 +193,18 @@ public class RequestDAO implements DAO<Requests> {
 	}
 	
 	@Override
-	public boolean delete(int reimbId) {
+	public boolean delete(int reimbId) 
+	{
 		return false;
 	}
 	
-	private List<Requests> mapResultSet(ResultSet rs) throws SQLException {
+	private List<Requests> mapResultSet(ResultSet rs) throws SQLException 
+	{
 		
 		List<Requests> requests = new ArrayList<>();
 		
-		while(rs.next()) {
+		while(rs.next()) 
+		{
 			Requests requests1 = new Requests();
 			requests1.setId(rs.getInt("REQUEST_ID"));
 			requests1.setAmount(rs.getInt("AMOUNT"));
