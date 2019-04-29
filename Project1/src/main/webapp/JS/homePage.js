@@ -185,3 +185,208 @@ async function loadManager()
     configureManager();
 }  
 
+
+//------------------------------------------------------------------------------------s
+
+
+
+async function newReimbursement() 
+{
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date+' '+time;
+
+    let reimbTypeElement = document.getElementById('reim-type');
+    let reimbursementType = reimbTypeElement.options[reimbTypeElement.selectedIndex].value;
+    let reimbursementTypeId = 0;
+    switch(reimbursementType)
+    {
+        case "lodging":
+        reimbursementTypeId = 1;
+        break;
+        case "travel":
+        reimbursementTypeId = 2;
+        break;
+        case "food":
+        reimbursementTypeId = 3;
+        break;
+        case "other":
+        reimbursementTypeId = 4;
+        break;
+    }
+    
+    let newReim = 
+    {
+        id: 0,
+        amount: document.getElementById('reim-amount').value,
+        submitted: dateTime,
+        resolved: '',
+        description: document.getElementById('reim-description').value,
+        receipt: null,
+        author: 0,
+        resolver: 0,
+        reimbStatus:
+        {
+        reimbStatusId: '1',
+        reimbStatusName: 'pending'
+        },
+        reimbType:
+        {
+        reimbTypeId: `${reimbursementTypeId}`,
+        reimbTypeName: `${reimbursementType}`
+        }
+
+    };
+
+    let response = await fetch('reimbursements', 
+    {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+        'Authorization' : localStorage.getItem('jwt')
+        },
+        body: JSON.stringify(newReim)
+    });
+
+    let responseBody = await response.json();
+    if (responseBody != null) 
+    {
+        document.getElementById('alert-msg-reimbursement').hidden = true;
+        document.getElementById('reimbursement-success').hidden = false;
+        setTimeout(getDashboard, 3000);
+    } 
+    else 
+    {
+        document.getElementById('alert-msg-reimbursement').hidden = false;
+    }
+}
+
+
+//Updating reimbursements
+async function approveReimbursementRequest(reimbId, amount, submitted, description, author, type) 
+{
+
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date+' '+time;
+
+    let reimbursementTypeId = 0;
+    switch(type)
+    {
+        case "lodging":
+        reimbursementTypeId = 1;
+        break;
+        case "travel":
+        reimbursementTypeId = 2;
+        break;
+        case "food":
+        reimbursementTypeId = 3;
+        break;
+        case "other":
+        reimbursementTypeId = 4;
+        break;
+    }
+
+    let updatedReim = 
+    {
+        id: reimbId,
+        amount: amount,
+        submitted: submitted,
+        resolved: dateTime,
+        description: description,
+        receipt: null,
+        author: author,
+        resolver: 0,
+        reimbStatus:
+        {
+            reimbStatusId: '2',
+            reimbStatusName: 'approved'
+        },
+        reimbType:
+        {
+            reimbTypeId: `${reimbursementTypeId}`,
+            reimbTypeName: `${type}`
+        }
+
+    };
+
+    let response = await fetch('reimbursements', 
+    {
+        method: 'POST',
+        mode: 'cors',
+        headers: 
+        {
+            'Authorization' : localStorage.getItem('jwt')
+        },
+        body: JSON.stringify(updatedReim)
+    });
+
+    let responseBody = await response.json();
+    return responseBody;
+}
+
+async function denyReimbursementRequest(reimbId, amount, submitted, description, author, type) 
+{
+
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date+' '+time;
+
+    let reimbursementTypeId = 0;
+    switch(type)
+    {
+        case "lodging":
+        reimbursementTypeId = 1;
+        break;
+        case "travel":
+        reimbursementTypeId = 2;
+        break;
+        case "food":
+        reimbursementTypeId = 3;
+        break;
+        case "other":
+        reimbursementTypeId = 4;
+        break;
+    }
+
+    let updatedReim = 
+    {
+        id: reimbId,
+        amount: amount,
+        submitted: submitted,
+        resolved: dateTime,
+        description: description,
+        receipt: null,
+        author: author,
+        resolver: 0,
+        reimbStatus:
+        {
+            reimbStatusId: '3',
+            reimbStatusName: 'denied'
+        },
+        reimbType:
+        {
+            reimbTypeId: `${reimbursementTypeId}`,
+            reimbTypeName: `${type}`
+        }
+
+    };
+
+    let response = await fetch('reimbursements', 
+    {
+        method: 'POST',
+        mode: 'cors',
+        headers: 
+        {
+            'Authorization' : localStorage.getItem('jwt')
+        },
+
+        body: JSON.stringify(updatedReim)
+    });
+
+    let responseBody = await response.json();
+    return responseBody;
+}
